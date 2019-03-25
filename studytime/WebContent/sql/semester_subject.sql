@@ -1,0 +1,38 @@
+drop table semester_subject;
+create table semester_subject(sem_id number references semester(sem_id),
+sub_code varchar2(8),
+subject varchar2(100));
+insert into  semester_subject values(3,'IT301','CM');
+insert into  semester_subject values(3,'IT302','Basic Electronic');
+insert into  semester_subject values(3,'IT303','DS');
+insert into  semester_subject values(3,'IT304','M3');
+insert into  semester_subject values(3,'IT305','OOPS');
+insert into  semester_subject values(3,'IT306','DELD');
+insert into  semester_subject values(4,'IT401','SMP');
+insert into  semester_subject values(4,'IT402','Discrete Maths');
+insert into  semester_subject values(4,'IT403','Computer Organization');
+insert into  semester_subject values(4,'IT404','PCS');
+insert into  semester_subject values(4,'IT405','TOC');
+insert into  semester_subject values(4,'IT406','Operating System');
+insert into  semester_subject values(5,'IT501','CN');
+insert into  semester_subject values(5,'IT502','DAA');
+insert into  semester_subject values(5,'IT503','Microprocessor');
+insert into  semester_subject values(5,'IT504','DBMS');
+insert into  semester_subject values(5,'IT505','Computer Graphics');
+insert into  semester_subject values(5,'IT506','E-Commerce');
+insert into  semester_subject values(6,'IT601','Compiler Design');
+insert into  semester_subject values(6,'IT602','ITC');
+insert into  semester_subject values(6,'IT603','IWT');
+insert into  semester_subject values(6,'IT604','CMC');
+insert into  semester_subject values(6,'IT605','Software Engineering');
+insert into  semester_subject values(6,'IT606','NNFL');
+insert into  semester_subject values(7,'IT701','MIS');
+insert into  semester_subject values(7,'IT702','AI and Expert System');
+insert into  semester_subject values(7,'IT703','Elective 1');
+insert into  semester_subject values(7,'IT704','Elective 2');
+insert into  semester_subject values(8,'IT801','Data Mining and Ware-Housing');
+insert into  semester_subject values(8,'IT802','Cryptography');
+insert into  semester_subject values(8,'IT803','Elective 1');
+insert into  semester_subject values(8,'IT804','Elective 2');
+commit;
+select * from semester_subject;
