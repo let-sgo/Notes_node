@@ -1,4 +1,5 @@
-create table quetionPaper(id number(20),
+drop  table questionpaper;
+create table questionPaper(id number(20),
 sem_id number(20),
 domain_name varchar2(40),
 sub_code varchar2(40),
