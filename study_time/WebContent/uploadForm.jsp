@@ -41,6 +41,15 @@
          
     </style>
 </head>
+<% Object obj = request.getAttribute("ermessage");
+if(obj!=null){
+	String msg = (String)obj;
+	%>
+	<script>
+	alert("<%=msg%>");
+	</script>
+<%}%>
+
  <body>
      <div style=" background-image: url('background.gif');">
     
@@ -119,7 +128,12 @@
                                                 <label class="control-label" for="date">Date of Paper</label>
                                                 <input class="form-control" id="date" name="date" placeholder="MM/DD/YYY" type="text"/>
                                               </div>
+                                              <%String subcode = request.getParameter("subcode");
+                                            
+                                                		String subject = request.getParameter("subject");%>
                                               <div class="form-group"> <!-- Submit button -->
+                                              <input type="hidden" name="subcode" value=<%=subcode%>>
+                                              <input type="hidden" name="subject" value=<%=subject%>>
                                                 <button class="btn btn-primary " name="submit" type="submit">Upload</button>
                                             </div>
                                                         

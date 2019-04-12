@@ -9,7 +9,7 @@ public class DbConnectionUtil {
 	private final static String DRIVER_CLASS_NAME = "oracle.jdbc.driver.OracleDriver";
 	private final static String URL = "jdbc:oracle:thin:@localhost:1521:XE";
 	private final static String USER = "system";
-	private final static String PASSWORD = "Ig32mind$";
+	private final static String PASSWORD = "root";
 
 	private static boolean isDriverLoad=false; 
 	static {

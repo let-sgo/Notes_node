@@ -9,6 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.mail.Session;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -57,7 +58,8 @@ public class QuestionPaperUploadController extends HttpServlet {
 				FileItem fileItem2 = fileItemList.get(1);
 				FileItem fileItem3 = fileItemList.get(2);
 				FileItem fileItem4 = fileItemList.get(3);
-				  fileName = fileItem3.getName();
+				//  fileName = fileItem3.getName();
+				fileName = System.currentTimeMillis()+"";
 				  fileData = fileItem3.getInputStream();
 				int size  = (int)fileItem3.getSize();
 				
@@ -67,63 +69,62 @@ public class QuestionPaperUploadController extends HttpServlet {
 				String subject=codeSub.substring(codeSub.indexOf("$")+1,codeSub.length());
 				String year=fileItem4.getString().trim();
 				
-				
+				String nyear = year.substring(year.lastIndexOf('/')+1,year.length());
 				HttpSession session = request.getSession();
-				//Object obj1 = session.getAttribute("id");
+				Object obj1 = session.getAttribute("id");
 				Object obj2 = session.getAttribute("sem");
-				//Long id = (Long)obj1;
+				Long id1 = (Long)obj1;
 				int sem_id = Integer.parseInt((String)obj2);
 				
 				System.out.println("fn"+fileName);
 			
 				System.out.println("size"+size);
 				System.out.println("sem_id"+sem_id);
-				//System.out.println("id"+id);
+				System.out.println("id"+id1);
 				System.out.println("subc"+sub_code);
 				System.out.println("subn"+subject);
 				System.out.println("year"+year.getClass());
 				System.out.println("year"+year);
+				System.out.println("nyear"+nyear);
 				
 				Connection con = null;
 				PreparedStatement pstmt= null;
 				try {
 					con = DbConnectionUtil.getConnection();
-					String sql="insert into quetionpaper values(qp.nextval,?,?,?,?,?,?,?)";
+					String sql="insert into questionpaper values(?,?,?,?,?,?,?,?)";
 					pstmt = con.prepareStatement(sql);
 					//set date
-					
-					pstmt.setLong(1,sem_id);
-					pstmt.setString(2, domain_name);
-					pstmt.setString(3,sub_code);
-					pstmt.setString(4,subject);
-					java.util.Date date1=new SimpleDateFormat("dd/MM/yyyy").parse(year);
-					
-					System.out.println("date"+date1);
-					
-
-					pstmt.setDate(5,(new java.sql.Date(date1.getTime())));
-					pstmt.setString(6,  fileName);
-					pstmt.setBinaryStream(7, fileData,size);
+					pstmt.setLong(1,id1);
+					pstmt.setLong(2,sem_id);
+					pstmt.setString(3, domain_name);
+					pstmt.setString(4,sub_code);
+					pstmt.setString(5,subject);
+					pstmt.setString(6,nyear);
+					pstmt.setString(7,  fileName);
+					pstmt.setBinaryStream(8, fileData,size);
 					int totalInsert = pstmt.executeUpdate();
 					if(totalInsert==1) {
-						response.getWriter().print("successfully uploading to database ");
-						try{
-						Thread.sleep(5000);
-						}catch(Exception e){
-							response.getWriter().print("cannot be uploaded due to internal error");	
-						}
-						response.sendRedirect("index_landing3.jsp");
+						RequestDispatcher rd = request.getRequestDispatcher("dashboard.jsp");
+						request.setAttribute("successmsg","question paper sucessfully uploaded");
+						rd.forward(request,response);
 						
 					}else {
 						response.getWriter().print("error in uploading to database ");			
 									
-						response.sendRedirect("upload_notes.jsp");
+						response.sendRedirect("uploadForm.jsp");
 					}
 					
+					
+				} catch (SQLException e) {
+					RequestDispatcher rd = request.getRequestDispatcher("uploadForm.jsp");
+					request.setAttribute("ermessage","this year question paper already uploaded");
+					rd.forward(request, response);
+					e.printStackTrace();
 					
 				} catch (Exception e) {
 					response.getWriter().print("error in uploading");
 					e.printStackTrace();
+					response.sendRedirect("uploadForm.jsp");
 				}finally {
 					try {
 						DbConnectionUtil.closeConnection(con);

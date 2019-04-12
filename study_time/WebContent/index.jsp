@@ -17,6 +17,8 @@
 					String sem = (String)obj3;%>
 				<jsp:forward page="dashboard.jsp"></jsp:forward>
 				<%}%>
+				
+			
 <body class="my-login-page container" style= "background: url('images/background.png')">
 	<section class="h-100">
 		<div class="container h-100">

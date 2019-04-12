@@ -7,37 +7,74 @@
     pageEncoding="ISO-8859-1"%>
 <html> 
 <head>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
     <link rel ="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" />
     <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.2/semantic.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.js"> </script>
 </head>
+<%Object obj = request.getAttribute("successmsg");
+if(obj!=null){
+String smsg1=(String)obj;
+%>
+<script>
+alert("<%=smsg1%>");
+</script>
+<%}%>
  <body>
-     <div style=" background-image: url('background.gif');">
+     <div style="background:linear-gradient(white,teal,black);">
      <div class="ui container-fluid" style="margin-top : 50px; margin-left : 25px ; margin-right: 25px">
            <center>
                 <h2 class="ui header">Study Time</h2>
             </center>
             <% Object obj1=session.getAttribute("username");
              Object obj2=session.getAttribute("sem");
-            if(obj1!=null){
-            String username=(String)obj1;%>
-           <h4>hello <%=username%></h4>
+             String username="";
+             if(obj1!=null){
+            username=(String)obj1;%>
+           
            <%}if(obj2!=null){
            String sem =(String)obj2;
           if(!sem.equals("3")){%>
-           <a href="logout">Log Out</a>
+           
             <div class="ui menu">
                     <a class="item"><%=sem%>th semester</a>
                     <div class="right menu">
-                    
+                    <div class="item">
+		<div class="btn-group">
+			  <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				<i class="ui user icon"></i>Hello <%=username %>	
+			  </button>
+			  <div class="dropdown-menu">
+			    <a class="dropdown-item" href="logout">logout</a>
+			  
+			 
+			  </div>
+			</div>
+	</div>
                       <a class="item">Help</a>
                     </div>
            </div>
 		<%}else{%>
-		 <a href="logout">Log Out</a>
+		 
             <div class="ui menu">
                     <a class="item"><%=sem%>rd semester</a>
                     <div class="right menu">
+                    <div class="item">
+		<div class="btn-group">
+			  <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				<i class="ui user icon"></i>Hello <%=username %>	
+			  </button>
+			  <div class="dropdown-menu">
+			    <a class="dropdown-item" href="logout?">logout</a>
+			  
+			 
+			  </div>
+			</div>
+	</div>
                       <a class="item">Help</a>
                     </div>
            </div>
@@ -82,7 +119,7 @@
                         
                         <div class="twelve wide column">
 
-                       <center> <h1>Welcome to Study Time</h1></center>
+                       <center> <h1 style="padding:80px;color:white;"><img src="images/girl.jpg" style="heigth:30px;width:30px;">Welcome to Study Time</h1></center>
                         </div>
                     </div>
                   

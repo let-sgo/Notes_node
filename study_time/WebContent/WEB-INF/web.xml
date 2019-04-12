@@ -69,9 +69,7 @@
     <servlet-name>QuestionPaperUploadController</servlet-name>
     <url-pattern>/upload_question_paper</url-pattern>
   </servlet-mapping>
-  
-  
-   <servlet>
+  <servlet>
     <description></description>
     <display-name>QuestionPaperDownloadController</display-name>
     <servlet-name>QuestionPaperDownloadController</servlet-name>
@@ -80,5 +78,65 @@
   <servlet-mapping>
     <servlet-name>QuestionPaperDownloadController</servlet-name>
     <url-pattern>/download_question_paper</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>DeleteNotesController</display-name>
+    <servlet-name>DeleteNotesController</servlet-name>
+    <servlet-class>project.com.controller.DeleteNotesController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DeleteNotesController</servlet-name>
+    <url-pattern>/delete_notes</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>DeletePaperController</display-name>
+    <servlet-name>DeletePaperController</servlet-name>
+    <servlet-class>project.com.controller.DeletePaperController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DeletePaperController</servlet-name>
+    <url-pattern>/delete_question_paper</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>AddRollNoController</display-name>
+    <servlet-name>AddRollNoController</servlet-name>
+    <servlet-class>project.com.controller.AddRollNoController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AddRollNoController</servlet-name>
+    <url-pattern>/add_rollno</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>AddRollNoSliderController</display-name>
+    <servlet-name>AddRollNoSliderController</servlet-name>
+    <servlet-class>project.com.controller.AddRollNoSliderController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AddRollNoSliderController</servlet-name>
+    <url-pattern>/add_rollno_slider</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>UpdateYearController</display-name>
+    <servlet-name>UpdateYearController</servlet-name>
+    <servlet-class>project.com.controller.UpdateYearController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UpdateYearController</servlet-name>
+    <url-pattern>/update_year</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>DeleteRollNoController</display-name>
+    <servlet-name>DeleteRollNoController</servlet-name>
+    <servlet-class>project.com.controller.DeleteRollNoController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DeleteRollNoController</servlet-name>
+    <url-pattern>/delete_rollno</url-pattern>
   </servlet-mapping>
 </web-app>

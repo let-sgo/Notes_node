@@ -37,9 +37,9 @@ public class QuestionPaperDownloadController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		 int id=Integer.parseInt(request.getParameter("id"));
+		 String filename = request.getParameter("filename");
 			//String donwloadDir="E:\\ProjectImages\\";
-		
+		System.out.println("filenaem"+filename);
 			 Connection con = null;
 			 PreparedStatement  pstmt  = null;
 			 ResultSet rs  =null;
@@ -49,10 +49,10 @@ public class QuestionPaperDownloadController extends HttpServlet {
 			 try {
 					
 					con = DbConnectionUtil.getConnection();
-					String sql="select * from quetionpaper "
-							+ " where id=?";
+					String sql="select * from questionpaper "
+							+ " where filename=?";
 					pstmt = con.prepareStatement(sql);				
-					pstmt.setLong(1, id);
+					pstmt.setString(1, filename);
 					rs  = pstmt.executeQuery();
 					if(rs.next()) {
 						repDataIS  = rs.getBinaryStream("FILEDATA");

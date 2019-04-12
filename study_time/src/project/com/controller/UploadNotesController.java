@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -52,15 +53,24 @@ public class UploadNotesController extends HttpServlet {
 				String fileName = null;
 				InputStream fileData = null;
 				
-				FileItem fileItem = fileItemList.get(0);
-				FileItem fileItem1 = fileItemList.get(1);
-				FileItem fileItem2 = fileItemList.get(2);
+				
+				FileItem fileItem1 = fileItemList.get(0);
+				FileItem fileItem2 = fileItemList.get(1);
 				  fileName = fileItem2.getName();
+				  
+				  String codeSub = fileItem1.getString().trim();
+					String sub_code=codeSub.substring(0,codeSub.indexOf("$"));
+					String subject=codeSub.substring(codeSub.indexOf("$")+1,codeSub.length());
+					
+				  int index=0;
+				if((index=fileName.lastIndexOf('\\'))>=0){
+				  fileName=fileName.substring(index+1,fileName.length());
+				  }
+				System.out.println("filename"+fileName);
 				  fileData = fileItem2.getInputStream();
 				int size  = (int)fileItem2.getSize();
 				
-				String subcode = fileItem.getString().trim();
-				String subname = fileItem1.getString().trim();
+				
 				
 				
 				
@@ -68,16 +78,18 @@ public class UploadNotesController extends HttpServlet {
 				HttpSession session = request.getSession();
 				Object obj1 = session.getAttribute("id");
 				Object obj2 = session.getAttribute("sem");
+				System.out.println("obj2"+obj2);
 				Long id = (Long)obj1;
+				
 				int sem_id = Integer.parseInt((String)obj2);
 				
 				System.out.println("fn"+fileName);
-				System.out.println("data"+fileData);
+				//System.out.println("data"+fileData);
 				System.out.println("size"+size);
 				System.out.println("sem_id"+sem_id);
 				System.out.println("id"+id);
-				System.out.println("subc"+subcode);
-				System.out.println("subn"+subname);
+				System.out.println("subc"+sub_code);
+				System.out.println("subn"+subject);
 				
 				Connection con = null;
 				PreparedStatement pstmt= null;
@@ -88,15 +100,17 @@ public class UploadNotesController extends HttpServlet {
 					pstmt  = con.prepareStatement(sql);
 					pstmt.setLong(1,id);
 					pstmt.setInt(2,sem_id);
-					pstmt.setString(3,subcode);
-					pstmt.setString(4,subname);
+					pstmt.setString(3,sub_code);
+					pstmt.setString(4,subject);
 					pstmt.setString(5,fileName);
 					pstmt.setBinaryStream(6, fileData,size);
 					
 					
 					int totalInsert = pstmt.executeUpdate();
 					if(totalInsert==1) {
-						response.sendRedirect("index_landing3.jsp");
+						RequestDispatcher rd = request.getRequestDispatcher("dashboard.jsp");
+						request.setAttribute("successmsg","notes successfully uploaded");
+						rd.forward(request, response);
 						
 					}else {
 						response.getWriter().print("error in uploading");
@@ -106,6 +120,7 @@ public class UploadNotesController extends HttpServlet {
 					
 				} catch (Exception e) {
 					response.getWriter().print("error in uploading");
+					response.sendRedirect("upload_notes.jsp");
 				}finally {
 					try {
 						DbConnectionUtil.closeConnection(con);

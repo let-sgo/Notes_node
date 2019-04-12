@@ -1,5 +1,10 @@
 package project.com.dao;
 
+import java.util.List;
+
+import project.com.bo.Notes;
+
 public interface NotesDao {
-boolean makeAvailable(long sno);
+boolean delete(long sno);
+List<Notes> getNotesBySubject(String subcode,long semid);
 }

@@ -48,13 +48,13 @@ public class DownloadNotesController extends HttpServlet {
 		Connection con = null;
 		PreparedStatement pstmt= null;
 		ResultSet rs = null;
-		
-		
+		String sn = request.getParameter("sno");
+		Long sno = Long.parseLong(sn);
 		try {
 			con = DbConnectionUtil.getConnection();
-			String sql = "select * from notes where uploaded=?";
+			String sql = "select * from notes where sno=?";
 			pstmt  = con.prepareStatement(sql);
-			pstmt.setString(1,"true");
+			pstmt.setLong(1,sno);
 			rs =pstmt.executeQuery();
 			if(rs.next()) {
 					String fileName = rs.getString("file_name");
